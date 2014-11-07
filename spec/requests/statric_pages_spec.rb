@@ -1,69 +1,49 @@
 
-#require 'rails_helper'
+require 'rails_helper'
 require 'spec_helper'
 
 describe "StatricPages" do
 
-	let(:base_title){ "Ruby on Rails Tutorial Sample App | " }
+	subject{ page }
 
   describe "GET /static_pages (Homepage)" do
-		it "Have content 'Sample'" do
-		  visit '/static_pages/home'
-		  expect(page).to have_content ('Sample App')
-		end
+    before{visit root_path}
 
-    it "Have rhe base title" do
-      visit '/static_pages/home'
-      expect(page).to have_title('Ruby on Rails Tutorial Sample App')
-    end
+    it {is_expected.to have_content('Sample App')}
 
-    it "Do'nt Have a custom page title"do
-      visit '/static_pages/home'
-      expect(page).not_to have_title(" | Home")
-    end
+    it {is_expected.to have_title('')}
+
+    it {is_expected.not_to have_title(' | Home')}
 
   end
 
   describe "Help page" do
-  	it "Have content 'Help'" do
-  		visit '/static_pages/help'
-  		expect(page).to have_content ('Help')
-  	end
+    before{visit help_path}
 
+    it {is_expected.to have_content ('Help')}
 
-  	it "Have the right title" do
-			visit '/static_pages/help'
-			expect(page).to have_title("#{base_title}Help")
-		end
+    it {is_expected.to have_title (full_title('Help'))}
+
   end
 
   describe "About page" do
-  	it "Have content 'about'" do
-  		visit '/static_pages/about'
-  		expect(page).to have_content ('About Us')
-  	end
 
-		it "Have the right title" do
-			visit '/static_pages/about'
-			expect(page).to have_title("#{base_title}About")
-		end
+    before{visit about_path}
+
+    it {is_expected.to have_content ('About')}
+
+    it {is_expected.to have_title (full_title('About'))}
+
   end
 
   describe "Contact page" do
-  	it "Have content 'Contact'" do
-  		visit '/static_pages/contact'
-  		expect(page).to have_content ('Contact')
-  	end
 
-		it "Have the right title" do
-			visit '/static_pages/contact'
-			expect(page).to have_title("#{base_title}Contact")
-		end
+    before{visit contact_path}
+
+    it {is_expected.to have_content ('Contact')}
+
+    it {is_expected.to have_title (full_title('Contact'))}
 
   end
-
-
-
-
 
 end
