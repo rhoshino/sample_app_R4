@@ -6,23 +6,29 @@ describe "StatricPages" do
 
 	subject{ page }
 
+  shared_examples_for "all static pages" do
+    it {is_expected.to have_content(heading)}
+    it {is_expected.to have_title(page_title)}
+  end
+
+
   describe "GET /static_pages (Homepage)" do
     before{visit root_path}
 
-    it {is_expected.to have_content('Sample App')}
+    let(:heading) {'Sample App'}
+    let(:page_title){''}
 
-    it {is_expected.to have_title('')}
-
+    it_should_behave_like("all static pages")
     it {is_expected.not_to have_title(' | Home')}
 
   end
 
   describe "Help page" do
     before{visit help_path}
+    let(:heading) {'Help'}
+    let(:page_title){'Help'}
 
-    it {is_expected.to have_content ('Help')}
-
-    it {is_expected.to have_title (full_title('Help'))}
+    it_should_behave_like("all static pages")
 
   end
 
@@ -30,9 +36,10 @@ describe "StatricPages" do
 
     before{visit about_path}
 
-    it {is_expected.to have_content ('About')}
+    let(:heading) {'About'}
+    let(:page_title){'About'}
 
-    it {is_expected.to have_title (full_title('About'))}
+    it_should_behave_like("all static pages")
 
   end
 
@@ -40,10 +47,32 @@ describe "StatricPages" do
 
     before{visit contact_path}
 
-    it {is_expected.to have_content ('Contact')}
+    let(:heading) {'Contact'}
+    let(:page_title){'Contact'}
 
-    it {is_expected.to have_title (full_title('Contact'))}
+    it_should_behave_like("all static pages")
 
+  end
+
+
+  it "Have Collect links on the layout" do
+    visit root_path
+
+    click_link "About"
+    expect(page).to have_title(full_title('About'))
+
+    click_link "Help"
+    expect(page).to have_title(full_title('Help'))
+
+    click_link "Contact"
+    expect(page).to have_title(full_title('Contact'))
+
+    click_link "Home"
+    click_link "Sign up now!"
+    expect(page).to have_title(full_title('Sign up'))
+
+    click_link "sample app"
+    expect(page).to have_title(full_title(''))
   end
 
 end
