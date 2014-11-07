@@ -1,4 +1,6 @@
-require 'rails_helper'
+
+#require 'rails_helper'
+require 'spec_helper'
 
 describe "StatricPages" do
 
@@ -10,10 +12,16 @@ describe "StatricPages" do
 		  expect(page).to have_content ('Sample App')
 		end
 
-		it "Have the right title" do
-			visit '/static_pages/home'
-			expect(page).to have_title("#{base_title}Home")
-		end
+    it "Have rhe base title" do
+      visit '/static_pages/home'
+      expect(page).to have_title('Ruby on Rails Tutorial Sample App')
+    end
+
+    it "Do'nt Have a custom page title"do
+      visit '/static_pages/home'
+      expect(page).not_to have_title(" | Home")
+    end
+
   end
 
   describe "Help page" do
