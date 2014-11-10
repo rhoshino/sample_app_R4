@@ -6,6 +6,10 @@ gem 'rails', '4.1.7'
 gem 'bootstrap-sass','2.3.2.0'
 gem 'sprockets', '2.11.3'
 
+gem 'pry', '< 0.10.0'
+
+gem 'bcrypt'
+
 group :development , :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
@@ -15,6 +19,7 @@ group :development , :test do
   gem 'hirb-unicode'
   #gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'pry-byebug'
 end
 
 group :test do
