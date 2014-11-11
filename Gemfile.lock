@@ -60,6 +60,11 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.2.2)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
     ffi (1.9.6-x64-mingw32)
     hike (1.2.3)
     hirb (0.7.2)
@@ -189,6 +194,7 @@ DEPENDENCIES
   bootstrap-sass (= 2.3.2.0)
   capybara
   coffee-rails (~> 4.0.0)
+  factory_girl_rails (= 4.2.1)
   hirb
   hirb-unicode
   jbuilder (~> 2.0)

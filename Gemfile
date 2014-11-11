@@ -26,6 +26,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'capybara'
   gem 'launchy'
+  gem 'factory_girl_rails','4.2.1'
   #gem 'capybara-screenshot'
 end
 
