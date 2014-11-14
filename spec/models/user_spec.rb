@@ -17,6 +17,7 @@ describe User do
   it {is_expected.to respond_to(:password_digest)}
   it {is_expected.to respond_to(:password)}
   it {is_expected.to respond_to(:password_confirmation)}
+  it {is_expected.to respond_to(:remember_token)}
   it {is_expected.to respond_to(:authenticate)}
 
   it {is_expected.to be_valid}
@@ -130,4 +131,9 @@ describe User do
 
   end
 
-end
+  describe "remember token" do
+    before{@user.save}
+    it(:remember_token){is_expected.not_to be_blank}
+  end
+
+end  # Describe user
