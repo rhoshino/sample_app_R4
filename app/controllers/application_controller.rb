@@ -5,10 +5,10 @@ class ApplicationController < ActionController::Base
 
   include SessionsHelper
 
-  def handle_unverfied_request
-    signout
-    super
-  end
+  # def handle_unverfied_request
+  #   signout
+  #   super
+  # end
 
 
 end
