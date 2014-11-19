@@ -9,6 +9,9 @@ gem 'sprockets', '2.11.3'
 gem 'pry', '< 0.10.0'
 
 gem 'bcrypt'
+gem 'faker', '1.1.2'
+gem 'will_paginate', '3.0.4'
+gem 'bootstrap-will_paginate', '0.0.9'
 
 group :development , :test do
   # Use sqlite3 as the database for Active Record
@@ -20,6 +23,7 @@ group :development , :test do
   #gem 'better_errors'
   gem 'binding_of_caller'
   gem 'pry-byebug'
+
 end
 
 group :test do
