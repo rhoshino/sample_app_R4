@@ -52,6 +52,11 @@ describe "Authentication" do
     describe "for non-signed-in users" do
       let(:user){FactoryGirl.create(:user)}
 
+      #check the Log'inUser's link
+      it {is_expected.not_to      have_link('Profile',  href: user_path(user))}
+      it {is_expected.not_to      have_link('Settings', href: edit_user_path(user))}
+      it {is_expected.not_to      have_link('Sign out', href: signout_path)}
+
       describe "when attempting to visit protected page" do
         before do
           visit edit_user_path(user)
@@ -65,6 +70,23 @@ describe "Authentication" do
           it "should render the desired protected page"do
             expect(page).to have_title("Edit user")
           end#shoud render the desired protected page
+
+          describe "when signing in agein" do
+            before do
+              delete signout_path
+              visit signin_path
+
+              fill_in "Email", with: user.email
+              fill_in "Password", with: user.password
+              click_button "Sign in"
+            end
+            it "shoud render the default (prifuke) page" do
+              expect(page).to have_title(user.name)
+            end
+
+          end
+
+
         end#after signing in
       end# when attempting to visit protected page
 
