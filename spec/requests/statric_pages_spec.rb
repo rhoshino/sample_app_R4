@@ -35,8 +35,8 @@ describe "StatricPages" do
           expect(page).to have_selector("li##{item.id}", text: item.content)
         end
       end
-    end
-  end
+    end# for signed-in users
+  end# Home page
 
   describe "Help page" do
     before{visit help_path}
@@ -45,7 +45,7 @@ describe "StatricPages" do
 
     it_should_behave_like("all static pages")
 
-  end
+  end# Help page
 
   describe "About page" do
 
