@@ -57,6 +57,7 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     columnize (0.8.9)
+    database_cleaner (1.0.1)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
@@ -200,6 +201,7 @@ DEPENDENCIES
   bootstrap-will_paginate (= 0.0.9)
   capybara
   coffee-rails (~> 4.0.0)
+  database_cleaner (~> 1.0.1)
   factory_girl_rails (= 4.2.1)
   faker (= 1.1.2)
   hirb

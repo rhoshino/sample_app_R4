@@ -23,7 +23,12 @@ describe User do
   #relation to micropost
   it {is_expected.to respond_to(:microposts)}
   it {is_expected.to respond_to(:feed)}
-
+  #relation ships to followed follower
+  it {is_expected.to respond_to(:relationships)}
+  it {is_expected.to respond_to(:followed_users)}
+  it {is_expected.to respond_to(:following?)}
+  it {is_expected.to respond_to(:follow!)}
+  it {is_expected.to respond_to(:followers)}
 
   #Validated?
   it {is_expected.to be_valid}
@@ -187,6 +192,33 @@ describe User do
     end
 
   end#micropost assciations
+
+
+  describe "following" do
+    let(:other_user){FactoryGirl.create(:user)}
+
+    before do
+      @user.save
+      @user.follow!(other_user)
+    end
+
+    it{ is_expected.to be_following(other_user) }
+    it{ expect(subject.followed_users).to include(other_user)}
+
+    describe "following" do
+      subject{other_user}
+      it{expect(subject.followers).to include(@user)}
+    end
+
+
+    describe "and unfollowing(remove)" do
+      before { @user.unfollow!(other_user)}
+
+      it{ is_expected.not_to be_following(other_user)}
+      it{ expect(subject.followed_users).not_to include(other_user)}
+    end
+
+  end# following
 
 
 end  # Describe user
