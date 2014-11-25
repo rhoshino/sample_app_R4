@@ -31,9 +31,7 @@ class User < ActiveRecord::Base
   end
 
   def feed
-    #this code is Preparatory stage
-    # later, inprement this.
-    Micropost.where("user_id = ?", id)
+    Micropost.form_users_followed_by(self)
   end
 
   def following?(other_user)
@@ -47,7 +45,6 @@ class User < ActiveRecord::Base
   def unfollow!(other_user)
     relationships.find_by(followed_id: other_user.id).destroy
   end
-
 
   private
     def create_remember_token

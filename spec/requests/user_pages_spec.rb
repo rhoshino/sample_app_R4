@@ -83,7 +83,56 @@ describe "User pages" do
       it{is_expected.to have_content(user.microposts.count)}
     end
 
-  end
+
+    describe "follow/unfollow buttons" do
+      let(:other_user){FactoryGirl.create(:user)}
+      before{sign_in user}
+
+      describe "followiing a user" do
+        before {visit user_path(other_user)}
+
+        it "should increment the followed user count" do
+          expect do
+            click_button "Follow"
+          end.to change(user.followed_users, :count).by(1)
+        end
+        it "shoud increment the other yser's followers count" do
+          expect do
+            click_button "Follow"
+          end.to change(other_user.followers, :count).by(1)
+        end
+
+        describe "togging the button" do
+          before{click_button "Follow"}
+          it{ is_expected.to have_xpath("//input[@value='Unfollow']")}
+        end
+
+        describe "unfollowing a user" do
+          before do
+            user.follow!(other_user)
+            visit user_path(other_user)
+          end
+
+          it "shoud decrement the followed user count"do
+            expect do
+              click_button "Unfollow"
+            end.to change(user.followed_users, :count).by(-1)
+          end
+          it "shoud decrement the other yser's followers count" do
+            expect do
+              click_button "Unfollow"
+            end.to change(other_user.followers, :count).by(-1)
+          end
+
+          describe "togging the button" do
+            before{click_button "Unfollow"}
+            it{is_expected.to have_xpath("//input[@value='Follow']")}
+          end
+
+        end# unfollowing
+      end# following user
+    end#Follow / Unollow
+  end#profile page
 
 
   describe "signup page" do
@@ -193,5 +242,36 @@ describe "User pages" do
     end
 
   end# edit
+
+  describe "following/followers" do
+    let(:user){FactoryGirl.create(:user)}
+    let(:other_user){FactoryGirl.create(:user)}
+    before{user.follow!(other_user)}
+
+    describe "followed users" do
+      before do
+        sign_in user
+        visit following_user_path(user)
+      end
+
+      it {is_expected.to have_title(full_title('Following'))}
+      it {is_expected.to have_selector('h3', text: 'Following')}
+      it {is_expected.to have_link(other_user.name, href: user_path(other_user))}
+
+    end
+
+    describe "followers" do
+      before do
+        sign_in other_user
+        visit followers_user_path(other_user)
+      end
+
+      it {is_expected.to have_title(full_title('Followers'))}
+      it {is_expected.to have_selector('h3', text: 'Followers')}
+      it {is_expected.to have_link(user.name, href: user_path(user))}
+
+    end
+
+  end#following/followers
 
 end#user pages

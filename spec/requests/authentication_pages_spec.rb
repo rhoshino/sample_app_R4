@@ -100,6 +100,20 @@ describe "Authentication" do
         end#after signing in
       end# when attempting to visit protected page
 
+
+      describe "in the Relationships controller" do
+        describe "submitting to the create action" do
+          before {post relationships_path}
+          specify{expect(response).to redirect_to(signin_path)}
+        end
+
+        describe "submmiting to the destroy action" do
+          before{delete relationship_path(1)}
+          specify{expect(response).to redirect_to(signin_path)}
+        end
+      end
+
+
       describe "in the Users controller" do
 
         describe "visiting the edit page" do
@@ -116,6 +130,17 @@ describe "Authentication" do
           before{visit users_path}
           it{is_expected.to have_title('Sign in')}
         end#visiting the user index
+
+
+        describe "visiting the following page" do
+          before {visit following_user_path(user)}
+          it{is_expected.to have_title('Sign in')}
+        end
+
+        describe "visiting the followers page" do
+          before{ visit followers_user_path(user)}
+          it{is_expected.to have_title('Sign in')}
+        end
 
 
       end#in the Users controller
